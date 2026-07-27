@@ -10,18 +10,12 @@
 <body>
 <div class="card">
   <h1>ניהול העדפות מייל</h1>
-  <p>כאן אפשר לבטל מיילים שיווקיים (תזכורות לייב, סיכומים, עדכונים).</p>
-  <p id="email" class="email"></p>
-  <a id="unsub" class="btn" href="#">הסר אותי ממיילים שיווקיים</a>
+  <p>
+    להסרה ממיילים שיווקיים, לחצ/י על הקישור
+    <strong>"הסר אותי מהרשימה"</strong>
+    שבתחתית כל מייל שקיבלת מאיתנו.
+  </p>
+  <p>מיילים חשובים על המנוי (תשלום, אימות) יישלחו במידת הצורך גם לאחר הסרה.</p>
 </div>
-<script>
-(function () {
-  var q = new URLSearchParams(location.search);
-  var e = q.get("e") || "", t = q.get("t") || "";
-  try { document.getElementById("email").textContent = atob(e.replace(/-/g, "+").replace(/_/g, "/")); } catch (err) {}
-  document.getElementById("unsub").href =
-    "../unsubscribe/?e=" + encodeURIComponent(e) + "&t=" + encodeURIComponent(t);
-})();
-</script>
 </body>
 </html>

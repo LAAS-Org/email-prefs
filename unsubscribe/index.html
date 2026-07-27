@@ -4,42 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>הסרה מרשימת התפוצה</title>
+<title>הוסרת מהרשימה</title>
 <link rel="stylesheet" href="../assets/prefs.css">
 </head>
 <body>
 <div class="card">
-  <h1 id="title">רק רגע…</h1>
-  <p id="body" class="spinner">מעדכנים את ההעדפות שלך.</p>
+  <h1>הוסרת מהרשימה</h1>
+  <p>
+    לא תקבל/י עוד מיילים שיווקיים ממשפחת אדמנט קפיטל.
+    ההסרה נקלטת ומעובדת תוך מספר דקות.
+  </p>
+  <p>מיילים חשובים על המנוי (תשלום, אימות) עדיין יישלחו במידת הצורך.</p>
+  <p id="email" class="email"></p>
 </div>
 <script>
 (function () {
-  var API = "https://laas-app.com";
-  var q = new URLSearchParams(location.search);
-  var e = q.get("e") || "", t = q.get("t") || "";
-  var title = document.getElementById("title");
-  var body = document.getElementById("body");
-
-  function fail(msg) {
-    title.textContent = "משהו השתבש";
-    body.className = "";
-    body.textContent = msg;
-  }
-
-  if (!e || !t) {
-    fail("קישור לא תקין או פג תוקף.");
-    return;
-  }
-  fetch(API + "/email/unsubscribe?format=json&e=" + encodeURIComponent(e) + "&t=" + encodeURIComponent(t))
-    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-    .then(function (res) {
-      if (!res.ok) { fail(res.j && res.j.detail ? res.j.detail : "לא הצלחנו לעדכן את ההעדפות."); return; }
-      title.textContent = "הוסרת מהרשימה";
-      body.className = "";
-      body.textContent = "לא תקבל/י עוד מיילים שיווקיים ממשפחת אדמנט קפיטל. " +
-        "מיילים חשובים על המנוי (תשלום, אימות) עדיין יישלחו במידת הצורך.";
-    })
-    .catch(function () { fail("לא הצלחנו להתחבר לשרת. נסה/י שוב מאוחר יותר."); });
+  // Display only — the opt-out itself is recorded by the mail system when the
+  // link in the email is clicked; this page holds no secrets and calls no API.
+  var e = new URLSearchParams(location.search).get("e") || "";
+  try {
+    document.getElementById("email").textContent =
+      atob(e.replace(/-/g, "+").replace(/_/g, "/"));
+  } catch (err) {}
 })();
 </script>
 </body>
